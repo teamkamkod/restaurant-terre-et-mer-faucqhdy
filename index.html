@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restaurant Terre et Mer - 5 Av. Jean Jaurès</title>
+<meta name="description" content="Découvrez le Restaurant Terre et Mer au 5 Av. Jean Jaurès. Une cuisine conviviale et savoureuse vous attend. Réservez votre table dès maintenant !">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #B85C38;
+    --secondary: #6B7A3F;
+    --background: #FBF5EC;
+    --text: #3A2E26;
+    --cta: #C97B3C;
+    --font-heading: 'DM Serif Display', serif;
+    --font-body: 'Jost', sans-serif;
+    --radius: 12px;
+    --shadow-soft: 0 8px 40px rgba(58,46,38,0.10), 0 2px 12px rgba(58,46,38,0.07);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--background);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.2; }
+
+  img { max-width: 100%; display: block; }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ── BOUTONS CTA ── */
+  .cta {
+    display: inline-block;
+    background: var(--cta);
+    color: #fff;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    padding: 0.85em 2em;
+    border-radius: var(--radius);
+    border: none;
+    cursor: pointer;
+    transition: background 0.25s, transform 0.18s, box-shadow 0.25s;
+    box-shadow: 0 4px 18px rgba(201,123,60,0.25);
+    text-align: center;
+  }
+  .cta:hover { background: var(--primary); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(184,92,56,0.28); }
+  .cta-outline {
+    display: inline-block;
+    background: transparent;
+    color: #fff;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    padding: 0.82em 1.9em;
+    border-radius: var(--radius);
+    border: 2px solid rgba(255,255,255,0.75);
+    cursor: pointer;
+    transition: background 0.25s, border-color 0.25s, transform 0.18s;
+  }
+  .cta-outline:hover { background: rgba(255,255,255,0.15); border-color: #fff; transform: translateY(-2px); }
+
+  /* ── NAVIGATION ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(251,245,236,0.96);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(184,92,56,0.10);
+    padding: 0 1.5rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 16px rgba(58,46,38,0.07);
+  }
+  .nav-logo {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    color: var(--primary);
+    white-space: nowrap;
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+  nav ul li a {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
+    position: relative;
+  }
+  nav ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0; right: 0;
+    height: 2px;
+    background: var(--primary);
+    transform: scaleX(0);
+    transition: transform 0.22s;
+    border-radius: 2px;
+  }
+  nav ul li a:hover { color: var(--primary); }
+  nav ul li a:hover::after { transform: scaleX(1); }
+  nav ul li.nav-cta a { color: #fff; }
+  nav ul li.nav-cta a::after { display: none; }
+
+  .burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 6px;
+    background: none;
+    border: none;
+    z-index: 101;
+  }
+  .burger span {
+    display: block;
+    width: 26px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .burger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .burger.active span:nth-child(2) { opacity: 0; }
+  .burger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  @media (max-width: 767px) {
+    .burger { display: flex; }
+    nav ul {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 64px; left: 0; right: 0;
+      background: rgba(251,245,236,0.98);
+      padding: 1.5rem 2rem 2rem;
+      gap: 1.2rem;
+      border-bottom: 1px solid rgba(184,92,56,0.12);
+      box-shadow: 0 8px 24px rgba(58,46,38,0.10);
+    }
+    nav ul.open { display: flex; }
+    nav ul li.nav-cta { margin-top: 0.5rem; }
+    nav ul li.nav-cta a { display: block; text-align: center; }
+  }
+  @media (min-width: 768px) {
+    nav ul { display: flex !important; }
+  }
+
+  /* ── SECTIONS COMMUNES ── */
+  section { padding: 5rem 1.5rem; }
+  .container { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--secondary);
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+  .section-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--text);
+    margin-bottom: 1.2rem;
+  }
+  .section-intro {
+    font-size: 1.05rem;
+    color: #6b5e52;
+    max-width: 600px;
+    line-height: 1.8;
+  }
+  .text-center { text-align: center; }
+  .text-center .section-intro { margin: 0 auto; }
+
+  /* ── FADE-IN ANIMATION ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── CORNER FRAME ── */
+  .corner-frame {
+    position: relative;
+    display: inline-block;
+  }
+  .corner-frame::before,
+  .corner-frame::after {
+    content: '';
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    border-color: var(--primary);
+    border-style: solid;
+    opacity: 0.55;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .corner-frame::before {
+    top: -8px; left: -8px;
+    border-width: 2px 0 0 2px;
+  }
+  .corner-frame::after {
+    bottom: -8px; right: -8px;
+    border-width: 0 2px 2px 0;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    position: relative;
+    height: 100vh;
+    min-height: 560px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 1.5rem;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: url('assets/hero.jpg') center center / cover no-repeat;
+    z-index: 0;
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(58,46,38,0.62) 0%, rgba(107,122,63,0.28) 100%);
+    z-index: 1;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(201,123,60,0.22);
+    border: 1px solid rgba(201,123,60,0.55);
+    color: #f5dfc0;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0.38em 1.1em;
+    border-radius: 50px;
+    margin-bottom: 1.4rem;
+    backdrop-filter: blur(4px);
+  }
+  .hero-content h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    color: #fff;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 24px rgba(58,46,38,0.35);
+  }
+  .hero-content p {
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: rgba(255,255,255,0.88);
+    margin-bottom: 2.2rem;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+  .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .hero-scroll {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    color: rgba(255,255,255,0.65);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    animation: bounce 2.2s infinite;
+  }
+  .hero-scroll svg { width: 20px; height: 20px; }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ── ABOUT ── */
+  #apropos {
+    background: #fff;
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .about-img-wrap {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .about-img-wrap img {
+    width: 100%;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-soft);
+    object-fit: cover;
+    aspect-ratio: 4/3;
+  }
+  .about-text p {
+    font-size: 1.05rem;
+    color: #5a4e44;
+    line-height: 1.85;
+    margin-bottom: 1.5rem;
+  }
+  .about-detail {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.92rem;
+    color: var(--primary);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .about-detail svg { flex-shrink: 0; }
+
+  @media (min-width: 768px) {
+    .about-grid { grid-template-columns: 1fr 1fr; }
+    .about-img-wrap { max-width: 100%; }
+  }
+
+  /* ── FEATURED MENU ── */
+  #carte {
+    background: var(--background);
+  }
+  .menu-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.8rem;
+    margin-top: 3rem;
+  }
+  .menu-card {
+    background: #fff;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-soft);
+    padding: 2rem 1.8rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .menu-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(58,46,38,0.13); }
+  .menu-card-icon {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+  }
+  .menu-card h3 {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+  }
+  .menu-card p {
+    font-size: 0.95rem;
+    color: #6b5e52;
+    line-height: 1.7;
+  }
+  .menu-card-accent {
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--primary), var(--secondary));
+    border-radius: 4px 0 0 4px;
+  }
+  @media (min-width: 768px) {
+    .menu-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .menu-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* ── AVIS ── */
+  #avis {
+    background: #fff;
+  }
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .review-card {
+    background: var(--background);
+    border-radius: var(--radius);
+    padding: 2.2rem 2rem 1.8rem;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+  }
+  .big-quote {
+    font-family: var(--font-heading);
+    font-size: 5rem;
+    line-height: 0.6;
+    color: var(--primary);
+    opacity: 0.22;
+    position: absolute;
+    top: 1.2rem;
+    left: 1.5rem;
+    user-select: none;
+    pointer-events: none;
+  }
+  .review-stars {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 1rem;
+  }
+  .star { color: #E8A838; font-size: 1.1rem; }
+  .review-text {
+    font-size: 0.97rem;
+    color: #5a4e44;
+    line-height: 1.75;
+    margin-bottom: 1.4rem;
+    font-style: italic;
+    position: relative;
+    z-index: 1;
+  }
+  .review-author {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .review-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .review-meta strong { display: block; font-size: 0.95rem; color: var(--text); font-weight: 600; }
+  .review-meta span { font-size: 0.82rem; color: #9a8a7e; }
+  @media (min-width: 768px) {
+    .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ── GALERIE CAROUSEL ── */
+  #galerie {
+    background: var(--background);
+    overflow: hidden;
+  }
+  .carousel-wrapper {
+    position: relative;
+    margin-top: 2.5rem;
+    overflow: hidden;
+    border-radius: var(--radius);
+  }
+  .carousel-track {
+    display: flex;
+    gap: 1.2rem;
+    transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
+    will-change: transform;
+  }
+  .carousel-slide {
+    flex: 0 0 calc(100% - 0px);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+  }
+  .carousel-slide img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s;
+  }
+  .carousel-slide:hover img { transform: scale(1.03); }
+  .carousel-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(0deg, rgba(58,46,38,0.72) 0%, transparent 100%);
+    color: #fff;
+    padding: 1.5rem 1.2rem 1rem;
+    font-size: 0.92rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+  }
+  .carousel-controls {
+    display: flex;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-top: 1.4rem;
+  }
+  .carousel-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid var(--primary);
+    background: #fff;
+    color: var(--primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, color 0.2s;
+    font-size: 1.1rem;
+  }
+  .carousel-btn:hover { background: var(--primary); color: #fff; }
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  .carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(184,92,56,0.25);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .carousel-dot.active { background: var(--primary); transform: scale(1.3); }
+  @media (min-width: 768px) {
+    .carousel-slide { flex: 0 0 calc(50% - 0.6rem); }
+    .carousel-slide img { height: 380px; }
+  }
+  @media (min-width: 1024px) {
+    .carousel-slide img { height: 420px; }
+  }
+
+  /* ── HORAIRES & ADRESSE ── */
+  #horaires {
+    background: #fff;
+  }
+  .hours-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    margin-top: 3rem;
+  }
+  .hours-table-wrap h3 {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
+    color: var(--text);
+  }
+  .hours-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .hours-table tr {
+    border-bottom: 1px solid rgba(58,46,38,0.08);
+  }
+  .hours-table tr:last-child { border-bottom: none; }
+  .hours-table td {
+    padding: 0.65rem 0.5rem;
+    font-size: 0.95rem;
+  }
+  .hours-table td:first-child {
+    font-weight: 600;
+    color: var(--text);
+    text-transform: capitalize;
+    width: 45%;
+  }
+  .hours-table td:last-child { color: #6b5e52; }
+  .hours-table tr.closed td { color: #b0a090; }
+  .hours-table tr.today td { color: var(--primary); font-weight: 700; }
+  .address-block {
+    background: var(--background);
+    border-radius: var(--radius);
+    padding: 1.8rem;
+    box-shadow: var(--shadow-soft);
+  }
+  .address-block h3 {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: var(--text);
+  }
+  .address-line {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    margin-bottom: 0.8rem;
+    font-size: 0.97rem;
+    color: #5a4e44;
+  }
+  .address-line svg { flex-shrink: 0; margin-top: 2px; color: var(--primary); }
+  .map-embed {
+    margin-top: 1.5rem;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+  }
+  .map-embed iframe {
+    width: 100%;
+    height: 240px;
+    border: none;
+    display: block;
+  }
+  @media (min-width: 768px) {
+    .hours-grid { grid-template-columns: 1fr 1fr; }
+    .map-embed iframe { height: 280px; }
+  }
+
+  /* ── FORMULAIRE ── */
+  #contact {
+    background: var(--background);
+  }
+  .contact-inner {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .form-group {
+    margin-bottom: 1.4rem;
+  }
+  .form-group label {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.45rem;
+    letter-spacing: 0.03em;
+  }
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 0.85em 1.1em;
+    border: 1.5px solid rgba(58,46,38,0.18);
+    border-radius: var(--radius);
+    background: #fff;
+    font-family: var(--font-body);
+    font-size: 0.97rem;
+    color: var(--text);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(184,92,56,0.12);
+  }
+  .form-group textarea { resize: vertical; min-height: 140px; }
+  .form-submit { text-align: center; margin-top: 1.8rem; }
+  .form-submit .cta { padding: 0.95em 3em; font-size: 1rem; }
+
+  /* ── TRUST SIGNALS ── */
+  #confiance {
+    background: linear-gradient(135deg, var(--primary) 0%, #8B3A1E 100%);
+    color: #fff;
+    padding: 4rem 1.5rem;
+  }
+  #confiance .section-heading { color: #fff; }
+  #confiance .section-label { color: rgba(255,255,255,0.7); }
+  .trust-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  .trust-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.7rem;
+    padding: 1.5rem 1rem;
+    background: rgba(255,255,255,0.10);
+    border-radius: var(--radius);
+    border: 1px solid rgba(255,255,255,0.15);
+    transition: background 0.2s;
+  }
+  .trust-item:hover { background: rgba(255,255,255,0.17); }
+  .trust-icon { font-size: 2rem; }
+  .trust-item span {
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.92);
+    line-height: 1.4;
+  }
+  @media (min-width: 768px) {
+    .trust-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .trust-grid { grid-template-columns: repeat(6, 1fr); }
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #2A1F18;
+    color: rgba(255,255,255,0.75);
+    padding: 3rem 1.5rem 2rem;
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+  }
+  .footer-tagline {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 1.8rem;
+  }
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  .footer-links a {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.65);
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: #fff; }
+  .footer-cta { margin-bottom: 2rem; }
+  .footer-copy {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.35);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 56px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    border-radius: 3px;
+    margin: 1rem auto 0;
+  }
+  .divider-left { margin: 1rem 0 0; }
+
+/* ── GARDE-FOU NAV (post-traitement deterministe, pas le LLM) ────────────────
+   Le modele produit typiquement `nav ul.open { flex-direction:column }` SANS
+   media query. Sa specificite (0,2,1) bat la regle desktop `nav ul` (0,0,2)
+   quand celle-ci n'a pas !important sur flex-direction : au retour en desktop
+   apres ouverture du burger, le menu reste empile en colonne (menu casse).
+   Cette regle force l'etat desktop quel que soit l'etat de .open. */
+@media (min-width: 768px) {
+  nav ul, nav ul.open, nav.open ul, nav ul[data-open="true"] {
+    flex-direction: row !important;
+    position: static !important;
+    display: flex !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    width: auto !important;
+  }
+  .burger, button.burger, .nav-toggle, #burger, .burger-menu { display: none !important; }
+}
+</style>
+<meta name="robots" content="noindex">
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav>
+  <div class="nav-logo">Terre et Mer</div>
+  <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <ul id="nav-menu">
+    <li><a href="#apropos">À propos</a></li>
+    <li><a href="#carte">Notre carte</a></li>
+    <li><a href="#avis">Avis</a></li>
+    <li><a href="#galerie">Galerie</a></li>
+    <li><a href="#horaires">Horaires</a></li>
+    <li class="nav-cta"><a href="#contact" class="cta">Réservez une table</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content fade-in">
+    <div class="hero-badge">Restaurant — Cenon, Bordeaux</div>
+    <h1>Bienvenue au Restaurant Terre et Mer</h1>
+    <p>Une expérience culinaire chaleureuse au 5 Av. Jean Jaurès</p>
+    <div class="hero-btns">
+      <a href="#contact" class="cta">Réservez votre table</a>
+      <a href="#carte" class="cta-outline">Découvrez notre carte</a>
+    </div>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    Découvrir
+  </div>
+</section>
+
+<!-- ── À PROPOS ── -->
+<section id="apropos">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img-wrap corner-frame fade-in">
+        <img src="assets/gallery-1.jpg" alt="Intérieur chaleureux du Restaurant Terre et Mer" loading="lazy">
+      </div>
+      <div class="about-text fade-in">
+        <span class="section-label">Notre histoire</span>
+        <h2 class="section-heading">À propos de nous</h2>
+        <div class="divider divider-left"></div>
+        <br>
+        <p>Situé au 5 Av. Jean Jaurès, le Restaurant Terre et Mer vous accueille dans une ambiance conviviale et chaleureuse. Notre équipe met tout en œuvre pour vous offrir un moment de détente autour d'une cuisine généreuse. Que ce soit pour un déjeuner rapide ou un dîner en famille ou entre amis, nous sommes ravis de vous recevoir.</p>
+        <div class="about-detail">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          5 Av. Jean Jaurès, 33150 Cenon, France
+        </div>
+        <div class="about-detail">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+          +33 5 56 86 12 76
+        </div>
+        <br>
+        <a href="#contact" class="cta">Réservez une table</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FEATURED MENU ── -->
+<section id="carte">
+  <div class="container">
+    <div class="text-center fade-in">
+      <span class="section-label">Saveurs du moment</span>
+      <h2 class="section-heading">Nos suggestions du moment</h2>
+      <div class="divider"></div>
+      <br>
+      <p class="section-intro">Découvrez nos plats préparés avec soin. Pour connaître nos suggestions du jour, n'hésitez pas à nous contacter directement.</p>
+    </div>
+    <div class="menu-grid">
+      <div class="menu-card fade-in">
+        <div class="menu-card-accent"></div>
+        <div class="menu-card-icon">🐟</div>
+        <h3>Poissons de la mer</h3>
+        <p>Des poissons frais sélectionnés avec soin, cuisinés selon les arrivages du jour pour vous garantir une fraîcheur irréprochable à chaque assiette.</p>
+      </div>
+      <div class="menu-card fade-in">
+        <div class="menu-card-accent"></div>
+        <div class="menu-card-icon">🥩</div>
+        <h3>Viandes du terroir</h3>
+        <p>Des viandes choisies auprès de producteurs locaux, préparées avec générosité et savoir-faire pour ravir les amateurs de cuisine de terroir.</p>
+      </div>
+      <div class="menu-card fade-in">
+        <div class="menu-card-accent"></div>
+        <div class="menu-card-icon">🥗</div>
+        <h3>Légumes de saison</h3>
+        <p>Des légumes frais et de saison qui accompagnent chaque plat avec couleur et saveur, dans le respect des produits et des producteurs locaux.</p>
+      </div>
+      <div class="menu-card fade-in">
+        <div class="menu-card-accent"></div>
+        <div class="menu-card-icon">🍮</div>
+        <h3>Desserts maison</h3>
+        <p>Des desserts préparés maison avec amour, pour terminer votre repas sur une note douce et gourmande qui vous laissera un souvenir mémorable.</p>
+      </div>
+      <div class="menu-card fade-in">
+        <div class="menu-card-accent"></div>
+        <div class="menu-card-icon">🍷</div>
+        <h3>Vins et boissons</h3>
+        <p>Une sélection de vins locaux et de boissons pour accompagner votre repas, dont un punch maison salué par nos habitués pour son caractère unique.</p>
+      </div>
+      <div class="menu-card fade-in">
+        <div class="menu-card-accent"></div>
+        <div class="menu-card-icon">🍽️</div>
+        <h3>Formules du midi</h3>
+        <p>Des formules déjeuner généreuses et accessibles, idéales pour une pause savoureuse entre collègues ou un repas convivial entre amis.</p>
+      </div>
+    </div>
+    <div class="text-center" style="margin-top:2.5rem;">
+      <a href="#contact" class="cta">Réservez une table</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── AVIS CLIENTS ── -->
+<section id="avis">
+  <div class="container">
+    <div class="text-center fade-in">
+      <span class="section-label">Témoignages</span>
+      <h2 class="section-heading">Ce que disent nos clients</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="reviews-grid">
+
+      <div class="review-card fade-in">
+        <div class="big-quote">"</div>
+        <div class="review-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="review-text">« Excellent restaurant de quartier. L'accueil est fort agréable, la cuisine est élaborée et délicieuse, tout cela à un prix modéré. Parfait. Terre &amp; Mer, c'est exactement le genre d'adresse qui donne une identité à un quartier. Pas prétentieux, pas tape-à-l'œil, mais une cuisine sincère, maîtrisée, avec ce petit supplément d'âme qui fait qu'on s'en souvient. Une cuisine maison qui ne triche pas, un accueil chaleureux, une clientèle locale fidèle, et ce côté "on est bien ici" qui ne s'achète pas. »</p>
+        <div class="review-author">
+          <div class="review-avatar">C</div>
+          <div class="review-meta">
+            <strong>Christophe D</strong>
+            <span>il y a 8 mois</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card fade-in">
+        <div class="big-quote">"</div>
+        <div class="review-stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="review-text">« Restaurant tenu par un couple sympathique. Bien placé juste en face du Tram A en bas Cenon et une petite terrasse devant. Ici la qualité est toujours présente. Les plats sont excellents. Le patron cuisinier est toujours à l'écoute. Sa femme au service et toujours le mot pour rire. Très bon Cadillac ainsi que le punch. Bravo à vous deux. De retour ici toujours excellent. »</p>
+        <div class="review-author">
+          <div class="review-avatar">J</div>
+          <div class="review-meta">
+            <strong>Jean Louis Ventura</strong>
+            <span>il y a 3 semaines</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── GALERIE ── -->
+<section id="galerie">
+  <div class="container">
+    <div class="text-center fade-in">
+      <span class="section-label">Notre univers</span>
+      <h2 class="section-heading">En images</h2>
+      <div class="divider"></div>
+      <br>
+      <p class="section-intro">Plongez dans l'ambiance du Restaurant Terre et Mer à travers quelques clichés de notre établissement et de nos plats.</p>
+    </div>
+    <div class="carousel-wrapper fade-in">
+      <div class="carousel-track" id="carouselTrack">
+        <div class="carousel-slide">
+          <img src="assets/hero.jpg" alt="Ambiance chaleureuse du Restaurant Terre et Mer" loading="lazy">
+          <div class="carousel-caption">Une ambiance chaleureuse et conviviale.</div>
+        </div>
+        <div class="carousel-slide">
+          <img src="assets/gallery-1.jpg" alt="Plats du Restaurant Terre et Mer" loading="lazy">
+          <div class="carousel-caption">Des plats préparés avec soin et générosité.</div>
+        </div>
+        <div class="carousel-slide">
+          <img src="assets/gallery-2.jpg" alt="Cuisine terre et mer, produits frais" loading="lazy">
+          <div class="carousel-caption">Produits frais et de saison à l'honneur.</div>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-controls">
+      <button class="carousel-btn" id="prevBtn" aria-label="Image précédente">&#8592;</button>
+      <button class="carousel-btn" id="nextBtn" aria-label="Image suivante">&#8594;</button>
+    </div>
+    <div class="carousel-dots" id="carouselDots"></div>
+  </div>
+</section>
+
+<!-- ── HORAIRES & ADRESSE ── -->
+<section id="horaires">
+  <div class="container">
+    <div class="text-center fade-in">
+      <span class="section-label">Informations pratiques</span>
+      <h2 class="section-heading">Horaires et adresse</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="hours-grid">
+      <div class="hours-table-wrap fade-in">
+        <h3>Nos horaires d'ouverture</h3>
+        <table class="hours-table">
+          <tbody>
+            <tr><td>Lundi</td><td>11h45 – 14h15</td></tr>
+            <tr><td>Mardi</td><td>11h45 – 14h15</td></tr>
+            <tr><td>Mercredi</td><td>11h45 – 14h15</td></tr>
+            <tr><td>Jeudi</td><td>11h45 – 14h15</td></tr>
+            <tr><td>Vendredi</td><td>11h45 – 14h15</td></tr>
+            <tr><td>Samedi</td><td>11h45 – 14h15</td></tr>
+            <tr class="closed"><td>Dimanche</td><td>Fermé</td></tr>
+          </tbody>
+        </table>
+        <br>
+        <a href="tel:+33556861276" class="cta">Appelez-nous</a>
+      </div>
+      <div class="address-block fade-in">
+        <h3>Nous trouver</h3>
+        <div class="address-line">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          5 Av. Jean Jaurès, 33150 Cenon, France
+        </div>
+        <div class="address-line">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.63A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
+          <a href="tel:+33556861276" style="color:inherit;">+33 5 56 86 12 76</a>
+        </div>
+        <div class="map-embed">
+          <iframe
+            src="https://www.google.com/maps?q=44.853252,-0.538139&z=15&output=embed"
+            title="Carte Restaurant Terre et Mer"
+            loading="lazy"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FORMULAIRE DE CONTACT ── -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="text-center fade-in">
+        <span class="section-label">Réservation</span>
+        <h2 class="section-heading">Contactez-nous</h2>
+        <div class="divider"></div>
+        <br>
+        <p class="section-intro">Pour toute réservation ou demande d'information, remplissez le formulaire ci-dessous et nous vous répondrons dans les plus brefs délais.</p>
+      </div>
+      <br>
+      <form action="https://checkout.kamkod.com/contact" method="POST" class="fade-in">
+        <input type="hidden" name="lead_id" value="ChIJef7Lj6YoVQ0Rz4fAUcQh-DY">
+        <div class="form-group">
+          <label for="name">Votre nom</label>
+          <input type="text" id="name" name="name" placeholder="Prénom et nom" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Votre adresse e-mail</label>
+          <input type="email" id="email" name="email" placeholder="exemple@email.fr" required>
+        </div>
+        <div class="form-group">
+          <label for="message">Votre message</label>
+          <textarea id="message" name="message" placeholder="Indiquez vos souhaits de réservation, le nombre de personnes, la date souhaitée..." required></textarea>
+        </div>
+        <div class="form-submit">
+          <button type="submit" class="cta">Envoyer ma demande</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ── TRUST SIGNALS ── -->
+<section id="confiance">
+  <div class="container">
+    <div class="text-center fade-in">
+      <span class="section-label">Nos engagements</span>
+      <h2 class="section-heading">Pourquoi nous choisir ?</h2>
+      <div class="divider" style="background:linear-gradient(90deg,rgba(255,255,255,0.6),rgba(255,255,255,0.3));"></div>
+    </div>
+    <div class="trust-grid">
+      <div class="trust-item fade-in">
+        <div class="trust-icon">🌿</div>
+        <span>Produits frais et de saison</span>
+      </div>
+      <div class="trust-item fade-in">
+        <div class="trust-icon">👨‍🍳</div>
+        <span>Cuisine maison</span>
+      </div>
+      <div class="trust-item fade-in">
+        <div class="trust-icon">🤝</div>
+        <span>Accueil chaleureux</span>
+      </div>
+      <div class="trust-item fade-in">
+        <div class="trust-icon">⭐</div>
+        <span>Équipe expérimentée</span>
+      </div>
+      <div class="trust-item fade-in">
+        <div class="trust-icon">🏡</div>
+        <span>Cadre convivial</span>
+      </div>
+      <div class="trust-item fade-in">
+        <div class="trust-icon">💳</div>
+        <span>Paiement par carte bancaire</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-logo">Terre et Mer</div>
+  <div class="footer-tagline">Cuisine généreuse au cœur de Cenon.</div>
+  <div class="footer-links">
+    <a href="#apropos">À propos</a>
+    <a href="#carte">Notre carte</a>
+    <a href="#avis">Avis</a>
+    <a href="#galerie">Galerie</a>
+    <a href="#horaires">Horaires</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-cta">
+    <a href="#contact" class="cta">Réservez votre table</a>
+  </div>
+  <div class="footer-copy">
+    Restaurant Terre et Mer — 5 Av. Jean Jaurès, 33150 Cenon, France. Tous droits réservés.
+  </div>
+</footer>
+
+<script>
+  // ── BURGER MENU ──
+  const burger = document.getElementById('burger');
+  const navMenu = document.getElementById('nav-menu');
+  burger.addEventListener('click', function() {
+    const isOpen = navMenu.classList.toggle('open');
+    burger.classList.toggle('active', isOpen);
+    burger.setAttribute('aria-expanded', isOpen);
+  });
+  navMenu.querySelectorAll('a').forEach(function(link) {
+    link.addEventListener('click', function() {
+      navMenu.classList.remove('open');
+      burger.classList.remove('active');
+      burger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // ── FADE-IN SCROLL ──
+  const fadeEls = document.querySelectorAll('.fade-in');
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  fadeEls.forEach(function(el) { observer.observe(el); });
+
+  // ── CAROUSEL ──
+  (function() {
+    const track = document.getElementById('carouselTrack');
+    const slides = track.querySelectorAll('.carousel-slide');
+    const dotsContainer = document.getElementById('carouselDots');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let current = 0;
+    let slidesPerView = 1;
+
+    function getSlidesPerView() {
+      if (window.innerWidth >= 768) return 2;
+      return 1;
+    }
+
+    function getMaxIndex() {
+      return Math.max(0, slides.length - slidesPerView);
+    }
+
+    function buildDots() {
+      dotsContainer.innerHTML = '';
+      const count = getMaxIndex() + 1;
+      for (let i = 0; i < count; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'carousel-dot' + (i === current ? ' active' : '');
+        dot.setAttribute('aria-label', 'Aller à l\'image ' + (i + 1));
+        dot.addEventListener('click', function() { goTo(i); });
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    function updateDots() {
+      const dots = dotsContainer.querySelectorAll('.carousel-dot');
+      dots.forEach(function(d, i) { d.classList.toggle('active', i === current); });
+    }
+
+    function getSlideWidth() {
+      if (!slides[0]) return 0;
+      const gap = 19.2;
+      return slides[0].offsetWidth + gap;
+    }
+
+    function goTo(index) {
+      const max = getMaxIndex();
+      current = Math.max(0, Math.min(index, max));
+      track.style.transform = 'translateX(-' + (current * getSlideWidth()) + 'px)';
+      updateDots();
+    }
+
+    prevBtn.addEventListener('click', function() { goTo(current - 1); });
+    nextBtn.addEventListener('click', function() { goTo(current + 1); });
+
+    function init() {
+      slidesPerView = getSlidesPerView();
+      current = Math.min(current, getMaxIndex());
+      buildDots();
+      goTo(current);
+    }
+
+    window.addEventListener('resize', function() {
+      slidesPerView = getSlidesPerView();
+      current = Math.min(current, getMaxIndex());
+      buildDots();
+      goTo(current);
+    });
+
+    init();
+
+    // Auto-play
+    setInterval(function() {
+      const max = getMaxIndex();
+      goTo(current < max ? current + 1 : 0);
+    }, 4500);
+  })();
+
+  // ── NAV SCROLL EFFECT ──
+  window.addEventListener('scroll', function() {
+    const nav = document.querySelector('nav');
+    if (window.scrollY > 60) {
+      nav.style.boxShadow = '0 4px 24px rgba(58,46,38,0.13)';
+    } else {
+      nav.style.boxShadow = '0 2px 16px rgba(58,46,38,0.07)';
+    }
+  });
+
+  // ── TODAY HIGHLIGHT ──
+  (function() {
+    const days = ['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
+    const today = days[new Date().getDay()];
+    const rows = document.querySelectorAll('.hours-table tr');
+    rows.forEach(function(row) {
+      const cell = row.querySelector('td');
+      if (cell && cell.textContent.trim().toLowerCase() === today) {
+        row.classList.add('today');
+      }
+    });
+  })();
+</script>
+<!-- kamkod:habillage -->
+<meta name="kamkod-version" content="ed6d6c8a3489">
+<div id="kamkod-demo-banner" class="kk-bandeau" data-lead="8aaa0708-6fdc-4aa7-9346-687a64a89d70" data-echeance="2026-09-22T03:50:35Z" style="position:fixed;bottom:0;left:0;right:0;background:#111;color:#fff;z-index:9999;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;box-shadow:0 -2px 14px rgba(0,0,0,.4);">
+  <div style="max-width:920px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;">
+    <span class="kk-texte" style="flex:1;min-width:200px;font-size:13px;opacity:.8;">Aperçu de votre futur site</span>
+    <span id="kk-offre" class="kk-decompte" data-echeance="2026-09-22T03:50:35Z" style="font-size:14px;font-variant-numeric:tabular-nums;">Aperçu de votre futur site</span>
+    <a class="kk-cta cta" href="https://clic-v2.kamkod.com/api/comportement/clic/8aaa0708-6fdc-4aa7-9346-687a64a89d70" rel="noopener" style="background:#EA580C;color:#fff;padding:10px 20px;border-radius:8px;text-decoration:none;font-weight:700;font-size:14px;white-space:nowrap;">Activer mon site</a>
+  </div>
+</div>
+<style>#kamkod-demo-banner{opacity:.55;transition:opacity .6s ease}#kamkod-demo-banner.kk-plein{opacity:1}</style>
+<script>(function(){var b=document.getElementById('kamkod-demo-banner');if(!b)return;var plein=false;function allumer(){if(plein){return;}plein=true;b.classList.add('kk-plein');}window.addEventListener('scroll',allumer,{once:true,passive:true});setTimeout(allumer,9000);})();</script>
+<script>window.__KK__={"over":"2026-09-22T03:50:35Z"};</script>
+<script>(function(){
+  var URL = "https://offre.kamkod.com/?lead=8aaa0708-6fdc-4aa7-9346-687a64a89d70";
+  var PID = "8aaa0708-6fdc-4aa7-9346-687a64a89d70";
+  document.addEventListener('click', function(e){
+    var el = e.target.closest('a, button, [role="button"]');
+    if(!el || el.closest('form')) return;
+    if(el.classList.contains('cta')) { e.preventDefault(); window.location.href = URL; return; }
+    if(el.closest('header nav, nav')) return;
+    var a = e.target.closest('a');
+    if(!a) return;
+    var href = a.getAttribute('href') || '';
+    if(href.charAt(0) === '#') return;
+    if(/^[a-z][a-z0-9+.-]*:/i.test(href)) return;
+    if(href.indexOf('//') === 0) return;
+    e.preventDefault(); window.location.href = URL;
+  }, true);
+})();</script>
+<script>(function(){
+  var el = document.getElementById('kk-offre');
+  if(!el) return;
+  var PID = "8aaa0708-6fdc-4aa7-9346-687a64a89d70";
+  var PRIX_L = "", PRIX_O = "";
+  var T_LAUNCH = "Votre aper\u00e7u expire dans \u003cb\u003e%TEMPS%\u003c/b\u003e \u2014 activez-le maintenant pour ne pas le perdre.", T_OVER = "Le d\u00e9ploiement est pass\u00e9 \u00e0 \u003cb\u003e%PRIX%\u003c/b\u003e";
+  var T_VIDE = "Aper\u00e7u de votre futur site";
+  function rendu(){
+    var fin = Date.parse(el.dataset.echeance || "2026-09-22T03:50:35Z");
+    if(!fin){ el.textContent = T_VIDE; return; }
+    var reste = Math.floor((fin - Date.now())/1000);
+    if(reste > 0){ var h=Math.floor(reste/3600), m=Math.floor((reste%3600)/60), s=reste%60;
+      var t = (h>0?(h+' h '):'') + (m<10?'0':'') + m + ' min ' + (s<10?'0':'') + s + ' s';
+      el.innerHTML = T_LAUNCH.replace('%PRIX%', PRIX_L).replace('%TEMPS%', t); }
+    else { el.innerHTML = (PRIX_O || PRIX_L)
+      ? T_OVER.replace('%PRIX%', PRIX_O || PRIX_L) : T_VIDE; }
+  }
+  rendu(); setInterval(rendu, 1000);
+})();</script>
+<!-- /kamkod:habillage -->
+<script>(function(){var s={"lead":"8aaa0708-6fdc-4aa7-9346-687a64a89d70","page":"site","t0":Date.now(),"scroll":0};window.addEventListener("scroll",function(){var d=document.documentElement;var y=(typeof window.scrollY==="number")?window.scrollY:(d.scrollTop||document.body.scrollTop||0);var h=(d.scrollHeight||0)-window.innerHeight;s.scroll=Math.max(s.scroll,Math.round((h>0?y/h:0)*100));});var pal=[].slice.call(document.querySelectorAll("[data-palier]"));function maj(){var p=-1;for(var i=0;i<pal.length;i++){var r=pal[i].getBoundingClientRect();if(r.top<window.innerHeight&&r.bottom>0){var n=parseInt(pal[i].getAttribute("data-palier"),10);if(!isNaN(n)&&n>p){p=n;}}}if(p>=0&&(s.prix_palier===undefined||p>s.prix_palier)){s.prix_palier=p;}}if(pal.length){window.addEventListener("scroll",maj,{passive:true});maj();}document.addEventListener("click",function(e){var c=(e.target&&e.target.closest)?e.target.closest("a.cta,button.cta,.cta"):null;if(c){s.cta_clics=(s.cta_clics||0)+1;}},true);window.addEventListener("pagehide",function(){s.ms=Date.now()-s.t0;try{navigator.sendBeacon("https://clic-v2.kamkod.com/api/comportement/",JSON.stringify(s));}catch(e){var x=new XMLHttpRequest();x.open("POST","https://clic-v2.kamkod.com/api/comportement/",true);x.send(JSON.stringify(s));}});})();</script></body>
+</html>
